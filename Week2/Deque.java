@@ -14,6 +14,8 @@ public class Deque<Item> implements Iterable<Item> {
 		public Node(Item item){this.item=item;}
 	}
 	
+	
+	
 	private class MyIterator implements Iterator<Item> {
 			private Node current = first;
 			public boolean hasNext() { return current != null; }
@@ -99,7 +101,12 @@ public class Deque<Item> implements Iterable<Item> {
 		   if(size==0){
 			   throw new NoSuchElementException();
 		   }
-		   
+		   if(size==1){
+			   Node ret=first;
+			   first=last=null;
+			   size--;
+			   return ret.item;
+		   }
 		   Node secondlast=first;
 			   while (secondlast.next.next!=null) {
 				secondlast=secondlast.next;
@@ -117,17 +124,23 @@ public class Deque<Item> implements Iterable<Item> {
 	   {
 		   StdOut.print("HelloWorld");
 		   Deque<Integer> deck=new Deque<>();
-		   deck.addLast(1);
-		   deck.addFirst(3);
+		   deck.addFirst(0);
+	         deck.addFirst(1);
+	         for (Integer integer : deck) {
+	 			StdOut.print(integer);
+	 		}
+	         deck.isEmpty();
+	         deck.removeLast()    ; 
+	         deck.removeLast();
 		   //deck.addLast(null);
-		   deck.addLast(2);
+		  // deck.addLast(2);
 		   for (Integer integer : deck) {
 			StdOut.print(integer);
 		}
 		   //Iterator i = deck.iterator();
 		   //i.remove();
 		   StdOut.print("\n");
-		   deck.removeFirst();deck.removeLast();
+	//	   deck.removeFirst();deck.removeLast();
 		   for (Integer integer : deck) {
 				StdOut.print(integer);
 			}

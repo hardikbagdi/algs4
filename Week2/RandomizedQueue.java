@@ -9,15 +9,16 @@ public class RandomizedQueue<Item>implements Iterable<Item>  {
 	private Item[] items;
 	private int size=0;
 	private boolean emptyflag=true;
-	private int last=-1;
+	//private int last=-1;
 	private class MyIterator implements Iterator<Item> {
 		private int i;
 		int[] indexs;
 		public MyIterator(){
-			int i2=0;
+		//	int i2=0;
+			this.i=0;
 		//	Item[] random = items.clone();
 			indexs= new int[size];
-			for (int i = 0; i2 < indexs.length; i++) {
+			for (int i2 = 0; i2 < size; i2++) {
 				indexs[i2]=i2;
 			}
 		StdRandom.shuffle(indexs);
@@ -29,7 +30,8 @@ public class RandomizedQueue<Item>implements Iterable<Item>  {
 			 throw new UnsupportedOperationException();
 			 }
 		 public Item next()
-		 {
+		 {	
+		 	//StdOut.print("\n \n Size is :"+size);
 			 if (!hasNext()) throw new NoSuchElementException();
 			 return items[indexs[i++]];
 		 }
@@ -44,8 +46,8 @@ public class RandomizedQueue<Item>implements Iterable<Item>  {
 	
 	 public RandomizedQueue()                 // construct an empty randomized queue
 	 {
-		 items = (Item[]) new Object[2];
-		 size=2;
+		 items = (Item[]) new Object[1];
+		 size=0;
 	 }
 	 public boolean isEmpty()                 // is the queue empty?
 	 {
@@ -64,23 +66,23 @@ public class RandomizedQueue<Item>implements Iterable<Item>  {
 	        if(size==items.length){
 	        	resize(2*items.length);
 	        }
-	        items[++last]=item;
+	        items[size]=item;
 	        size++;
 		 
 	 }
 	 
 	 public Item dequeue()                  
 	 {
-		 if(size==0 || emptyflag){
+		 if(isEmpty()){
 			 throw new NoSuchElementException(); 
 		 }
 		 Item item;
 		 int r= StdRandom.uniform(size);
 		 item= items[r];
-		 items[r]=items[last];
-		 items[last]=null;//taking care of loitering
-	               last--;
-	        size--;
+		 items[r]=items[--size];
+		 items[size]=null;//taking care of loitering
+	               
+	        //size--;
 	        
 	        if (size > 0 && size == items.length/4) {
 	        	resize(items.length/2); 
